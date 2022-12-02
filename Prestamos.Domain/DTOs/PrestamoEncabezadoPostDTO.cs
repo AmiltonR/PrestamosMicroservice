@@ -11,5 +11,6 @@ namespace Prestamos.Domain.DTOs
         public int IdUsuario { get; set; }
         public int IdUsuarioBibliotecario { get; set; }
         public DateTime FechaHora { get; set; }
+        public List<LibrosPostDTO> Libros { get; set; }
     }
 }

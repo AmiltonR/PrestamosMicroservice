@@ -1,4 +1,7 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Prestamos.API;
+using Prestamos.API.Repository;
 using Prestamos.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+//Adding services - Repository
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddScoped<IEncabezadoRepository, EncabezadoRepository>();
+builder.Services.AddScoped<IDetalleRepository, DetalleRepository>();
 builder.Services.AddDbContext<PrestamosDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

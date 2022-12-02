@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Prestamos.Domain.DTOs
 {
-    public class PrestamoDetalleGetDTO
+    public class LibrosPrestamoDTO
     {
         public int Id { get; set; }
-        public int IdLibro { get; set; }
+        public string Nombre { get; set; }
+        public string Editorial { get; set; }
 
     }
 }

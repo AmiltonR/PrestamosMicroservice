@@ -11,6 +11,6 @@ namespace Prestamos.Domain.DTOs
         public int Id { get; set; }
         public int IdUsuario { get; set; }
         public int IdUsuarioBibliotecario { get; set; }
-        public DateTime FechaHora { get; set; }
+        public string FechaHora { get; set; }
     }
 }
