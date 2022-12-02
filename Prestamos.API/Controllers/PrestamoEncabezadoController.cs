@@ -73,5 +73,21 @@ namespace Prestamos.API.Controllers
             }
             return Ok(_responseDTO);
         }
+
+        [HttpDelete("id")]
+        [Route("{id}")]
+        public async Task<Object> Delete(int id)
+        {
+            bool b = false;
+            try
+            {
+                b = await _encabezadoRepository.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return Ok(b);
+        }
     }
 }

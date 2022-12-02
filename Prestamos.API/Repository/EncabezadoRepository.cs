@@ -20,12 +20,21 @@ namespace Prestamos.API.Repository
 
         public async Task<bool> Delete(int id)
         {
+            using var transaction = _db.Database.BeginTransaction();
             bool flag = false;
             try
             {
+                //ELIMINANDO DETALLES
+                List<PrestamoDetalle> detalles = await _db.PrestamoDetalles.Where(d => d.IdPrestamoEncabezado == id).ToListAsync();
+                foreach (var item in detalles)
+                {
+                    _db.PrestamoDetalles.Remove(item);
+                }
+
                 PrestamoEncabezado encabezado = await _db.PrestamoEncabezados.Where(x => x.Id == id).FirstOrDefaultAsync();
                 _db.PrestamoEncabezados.Remove(encabezado);
                 await _db.SaveChangesAsync();
+                transaction.Commit();
                 flag = true;
             }
             catch (Exception)
