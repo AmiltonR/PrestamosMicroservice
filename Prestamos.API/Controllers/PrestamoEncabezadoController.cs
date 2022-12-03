@@ -66,6 +66,10 @@ namespace Prestamos.API.Controllers
                     _responseDTO.Success = true;
                     _responseDTO.Message = "Registro de préstamo guardado con éxito!";
                 }
+                else
+                {
+                    _responseDTO.Message = "Ocurrió un error";
+                }
             }
             catch (Exception ex)
             {

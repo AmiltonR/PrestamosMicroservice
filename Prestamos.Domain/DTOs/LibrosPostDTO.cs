@@ -9,6 +9,7 @@ namespace Prestamos.Domain.DTOs
 {
     public class LibrosPostDTO
     {
+        //Este libro se refiere al id en la tabla de detalle del libro, no en la tabla de encabezado
         public int IdLibro { get; set; }
     }
 }

@@ -62,12 +62,30 @@ namespace Prestamos.API.Repository
 
         public async Task<bool> Post(PrestamoEncabezadoPostDTO prestamo)
         {
+            using var transaction = _db.Database.BeginTransaction();
             bool flag = false;
             try
             {
+                //Guardamos el encabezado
                 PrestamoEncabezado encabezado = _mapper.Map<PrestamoEncabezado>(prestamo);
                 _db.PrestamoEncabezados.Add(encabezado);
                 await _db.SaveChangesAsync();
+
+                //Traemos el id del encabezado
+                int idEncabezado = _db.PrestamoEncabezados.Max(x => x.Id);
+
+                foreach (var item in prestamo.Libros)
+                {
+                    PrestamoDetalle detalle = new PrestamoDetalle
+                    {
+                        IdLibro = item.IdLibro,
+                        IdPrestamoEncabezado = idEncabezado
+                    };
+                    _db.PrestamoDetalles.Add(detalle);
+                }
+
+                await _db.SaveChangesAsync();
+                transaction.Commit();
                 flag = true;
             }
             catch (Exception)
